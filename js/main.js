@@ -2,13 +2,18 @@
 
 var imageArray = [];
 var CARDS_NUMBER = 25;
+var LIKES_MIN_NUMBER = 15;
+var LIKES_MAX_NUMBER = 200;
+var COMMENTS_MAX_NUMBER = 6;
+var AVATARS_NUMBER = 6;
+
 
 var names = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 
 var messages = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
-var takeRandomNaturalNumber = function (maxNumber) {
-  return Math.round(Math.random() * (maxNumber - 1)) + 1;
+var getRandomInt = function (maxNumber, minNumber = 1) {
+  return Math.round(Math.random() * (maxNumber - minNumber - 1)) + minNumber + 1;
 };
 
 var takeRandomElement = function (array) {
@@ -21,13 +26,15 @@ var createImageArray = function () {
 
     currentElement.url = 'photos/' + String(i + 1) + '.jpg';
     currentElement.description = '';
-    currentElement.likes = takeRandomNaturalNumber(185) + 15;
+    currentElement.likes = getRandomInt(LIKES_MAX_NUMBER, LIKES_MIN_NUMBER);
     currentElement.comments = [];
 
-    for (var j = 0; j < takeRandomNaturalNumber(6); j++) {
+    var iterations = getRandomInt(COMMENTS_MAX_NUMBER);
+
+    for (var j = 0; j < iterations; j++) {
       var currentComment = {};
 
-      currentComment.avatar = 'img/avatar-' + takeRandomNaturalNumber(6) + '.svg';
+      currentComment.avatar = 'img/avatar-' + getRandomInt(AVATARS_NUMBER) + '.svg';
       currentComment.message = takeRandomElement(messages);
       currentComment.name = takeRandomElement(names);
 
