@@ -3,7 +3,7 @@
 var CARDS_NUMBER = 25;
 var LIKES_MIN_NUMBER = 15;
 var LIKES_MAX_NUMBER = 200;
-var COMMENTS_MAX_NUMBER = 6;
+var COMMENTS_MAX_NUMBER = 30;
 var AVATARS_NUMBER = 6;
 
 var imageArray = [];
@@ -73,5 +73,51 @@ var renderImages = function (array) {
   picturesContainer.appendChild(fragment);
 };
 
+var showBigPicture = function (array) {
+  var pictureElement = document.querySelector('.big-picture');
+  var imageElement = pictureElement.querySelector('.big-picture__img > img');
+  var likesElement = pictureElement.querySelector('.likes-count');
+  var commentsCountElement = pictureElement.querySelector('.comments-count');
+  var commentsListElement = pictureElement.querySelector('.social__comments');
+  var commentElement = commentsListElement.querySelector('.social__comment');
+  var fragment = document.createDocumentFragment();
+  var descriptionElement = pictureElement.querySelector('.social__caption');
+
+  pictureElement.classList.remove('hidden');
+  imageElement.src = array[0].url;
+  likesElement.textContent = array[0].likes;
+  commentsCountElement.textContent = array[0].comments.length;
+
+  for (var i = 0; i < array[0].comments.length; i++) {
+    var currentCommentElement = commentElement.cloneNode(true);
+
+    currentCommentElement.querySelector('.social__picture').src = array[0].comments[i].avatar;
+    currentCommentElement.querySelector('.social__picture').alt = array[0].comments[i].name;
+    currentCommentElement.querySelector('.social__text').textContent = array[0].comments[i].message;
+
+    fragment.appendChild(currentCommentElement);
+  }
+
+  commentsListElement.appendChild(fragment);
+
+  descriptionElement.textContent = array[0].description;
+};
+
+var hideCommentCount = function () {
+  document.querySelector('.social__comment-count').classList.add('hidden');
+};
+
+var hideCommentLoader = function () {
+  document.querySelector('.comments-loader').classList.add('hidden');
+};
+
+var fixBody = function () {
+  document.querySelector('body').classList.add('modal-open');
+};
+
 createImageArray();
 renderImages(imageArray);
+showBigPicture(imageArray);
+hideCommentCount();
+hideCommentLoader();
+fixBody();
