@@ -262,12 +262,11 @@ var hideEffectBar = function () {
 
 var submitHandler = function (evt) {
 
-  var hashtags = hashtagAddingElement.value.split(/\s{1,}/);
+  var hashtags = hashtagAddingElement.value.split(/\s+/);
 
   if (hashtags.length > HASHTAG_MAX_COUNT) {
     evt.preventDefault();
   }
-  return;
 };
 
 buttonUploadElement.addEventListener('change', uploadImageHandler);
