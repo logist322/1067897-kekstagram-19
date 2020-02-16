@@ -136,6 +136,7 @@ var SCALE_STEP = 25;
 var SCALE_DEFAULT = 100;
 // var RANGE_DEFAULT = 100;
 var HASHTAG_MAX_COUNT = 5;
+var HASHTAG_MAX_LENGTH = 20;
 
 var imageScaleForm = SCALE_DEFAULT;
 // var filter = 'none';
@@ -162,7 +163,8 @@ var addFormHandlers = function () {
   effectListElement.addEventListener('click', changeFilterHandler);
   commentAddingElement.addEventListener('keydown', noEscHandler);
   hashtagAddingElement.addEventListener('keydown', noEscHandler);
-  formSubmitElement.addEventListener('click', submitHandler);
+  hashtagAddingElement.addEventListener('change', validateHashtagsHandler);
+  hashtagAddingElement.addEventListener('input', removeCustomValidityHandler);
 };
 
 var removeFormHandlers = function () {
@@ -172,6 +174,7 @@ var removeFormHandlers = function () {
   buttonScaleSmallerElement.removeEventListener('click', getImageSmallerHandler);
   effectListElement.removeEventListener('click', changeFilterHandler);
   commentAddingElement.removeEventListener('keydown', noEscHandler);
+  hashtagAddingElement.removeEventListener('change', validateHashtagsHandler);
 };
 
 var uploadImageHandler = function () {
@@ -260,13 +263,83 @@ var hideEffectBar = function () {
   effectElement.classList.add('hidden');
 };
 
-var submitHandler = function (evt) {
-
+var validateHashtagsHandler = function () {
   var hashtags = hashtagAddingElement.value.split(/\s+/);
+  var hashtagsLower = [];
 
-  if (hashtags.length > HASHTAG_MAX_COUNT) {
-    evt.preventDefault();
+  for (var i = 0; i < hashtags.length; i++) {
+    hashtagsLower[i] = hashtags[i].toLowerCase();
   }
+
+  for (var i = 0; i < hashtagsLower.length; i++) {
+    if (hashtagsLower[i] === '#') {
+      hashtagAddingElement.setCustomValidity('Хеш-тег не может состоят только из решетки.');
+      return;
+    } else {
+      hashtagAddingElement.setCustomValidity('');
+    }
+  }
+
+  for (var i = 0; i < hashtagsLower.length; i++) {
+    if (hashtagsLower[i][0] !== '#') {
+      hashtagAddingElement.setCustomValidity('Каждый хеш-тег начинается с решетки "#".');
+      return;
+    } else {
+      hashtagAddingElement.setCustomValidity('');
+    }
+  }
+
+  for (var i = 0; i < hashtagsLower.length; i++) {
+    if (/^[#][a-zа-яё0-9]+[#]/.test(hashtagsLower[i])) {
+      hashtagAddingElement.setCustomValidity('Хеш-теги разделяются пробелом.');
+      return;
+    } else {
+      hashtagAddingElement.setCustomValidity('');
+    }
+  }
+
+  for (var i = 0; i < hashtagsLower.length; i++) {
+    var rege = /^[#][a-zа-яё0-9]+$/;
+    if (!(/^[#][a-zа-яё0-9]+$/.test(hashtagsLower[i]))) {
+      hashtagAddingElement.setCustomValidity('Хеш-тег состоит из букв и цифр.');
+      return;
+    } else {
+      hashtagAddingElement.setCustomValidity('');
+    }
+  }
+
+  for (var i = 0; i < hashtagsLower.length; i++) {
+    if (hashtagsLower[i].length > HASHTAG_MAX_LENGTH) {
+      hashtagAddingElement.setCustomValidity('Хеш-тег не может быть длинее 20 символов.');
+      return;
+    } else {
+      hashtagAddingElement.setCustomValidity('');
+    }
+  }
+
+  for (var i = 0; i < hashtagsLower.length; i++) {
+    var currentHashtag = hashtagsLower[i];
+
+    for (var j = i + 1; j < hashtagsLower.length; j++) {
+      if (hashtagsLower.length !== 1 && currentHashtag === hashtagsLower[j]) {
+        hashtagAddingElement.setCustomValidity('Не может быть повторяющихся хеш-тегов. Хэш-теги нечувствительны к регистру: #ХэшТег и #хэштег считаются одним и тем же тегом.');
+        return;
+      } else {
+        hashtagAddingElement.setCustomValidity('');
+      }
+    }
+  }
+
+  if (hashtagsLower.length > HASHTAG_MAX_COUNT) {
+    hashtagAddingElement.setCustomValidity('Максимальное количество хеш-тегов ' + HASHTAG_MAX_COUNT + '.');
+    return;
+  } else {
+    hashtagAddingElement.setCustomValidity('');
+  }
+};
+
+var removeCustomValidityHandler = function () {
+  hashtagAddingElement.setCustomValidity('');
 };
 
 buttonUploadElement.addEventListener('change', uploadImageHandler);
