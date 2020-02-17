@@ -58,6 +58,7 @@ var renderImages = function (photos) {
     currentElement.querySelector('.picture__img').src = photos[i].url;
     currentElement.querySelector('.picture__likes').textContent = photos[i].likes;
     currentElement.querySelector('.picture__comments').textContent = photos[i].length;
+    currentElement.dataset.index = i;
 
     fragment.appendChild(currentElement);
   }
@@ -114,19 +115,45 @@ var init = function () {
 
 init();
 
-var smallElement = document.querySelector('.picture');
-var closeBigHandler = function (evt) {
+var list = document.querySelector('.pictures');
+var buttonCloseBigPicture = document.querySelector('#picture-cancel');
+
+var closeBigEscHandler = function (evt) {
   if (evt.key === ESCAPE_KEY) {
     document.querySelector('.big-picture').classList.add('hidden');
     hideBodyOverlay();
-    document.removeEventListener('keydown', closeBigHandler);
+    document.removeEventListener('keydown', closeBigEscHandler);
+    buttonCloseBigPicture.removeEventListener('click', closeBigHandler);
   }
 };
 
-smallElement.addEventListener('click', function () {
-  showBigPicture(images[0]);
-  document.addEventListener('keydown', closeBigHandler);
-});
+var closeBigHandler = function () {
+  document.querySelector('.big-picture').classList.add('hidden');
+  hideBodyOverlay();
+  document.removeEventListener('keydown', closeBigEscHandler);
+  buttonCloseBigPicture.removeEventListener('click', closeBigHandler);
+};
+
+var openBigHandler = function (evt) {
+  if (evt.target.className === 'picture__info' || evt.target.className === 'picture__img' || evt.target.className === 'picture__likes' || evt.target.className === 'picture__comments' || evt.target.className === 'picture') {
+    document.addEventListener('keydown', closeBigEscHandler);
+    buttonCloseBigPicture.addEventListener('click', closeBigHandler);
+  }
+
+  if (evt.target.className === 'picture__info' || evt.target.className === 'picture__img') {
+    showBigPicture(images[evt.target.parentNode.dataset.index]);
+  }
+
+  if (evt.target.className === 'picture__likes' || evt.target.className === 'picture__comments') {
+    showBigPicture(images[evt.target.parentNode.dataset.index]);
+  }
+
+  if (evt.target.className === 'picture') {
+    showBigPicture(images[evt.target.dataset.index]);
+  }
+};
+
+list.addEventListener('click', openBigHandler);
 
 var SCALE_MIN_COUNT = 25;
 var SCALE_MAX_COUNT = 100;
