@@ -153,7 +153,6 @@ var effectElement = formUploadImageElement.querySelector('.img-upload__effect-le
 var effectListElement = formUploadImageElement.querySelector('.effects__list');
 var hashtagAddingElement = formUploadImageElement.querySelector('.text__hashtags');
 var commentAddingElement = document.querySelector('.text__description');
-var formSubmitElement = document.querySelector('#upload-submit');
 
 var addFormHandlers = function () {
   buttonCloseFormElement.addEventListener('click', closeFormHandler);
@@ -175,6 +174,7 @@ var removeFormHandlers = function () {
   effectListElement.removeEventListener('click', changeFilterHandler);
   commentAddingElement.removeEventListener('keydown', noEscHandler);
   hashtagAddingElement.removeEventListener('change', validateHashtagsHandler);
+  hashtagAddingElement.removeEventListener('input', removeCustomValidityHandler);
 };
 
 var uploadImageHandler = function () {
@@ -271,8 +271,8 @@ var validateHashtagsHandler = function () {
     hashtagsLower[i] = hashtags[i].toLowerCase();
   }
 
-  for (var i = 0; i < hashtagsLower.length; i++) {
-    if (hashtagsLower[i] === '#') {
+  for (var j = 0; j < hashtagsLower.length; j++) {
+    if (hashtagsLower[j] === '#') {
       hashtagAddingElement.setCustomValidity('Хеш-тег не может состоят только из решетки.');
       return;
     } else {
@@ -280,8 +280,8 @@ var validateHashtagsHandler = function () {
     }
   }
 
-  for (var i = 0; i < hashtagsLower.length; i++) {
-    if (hashtagsLower[i][0] !== '#') {
+  for (var k = 0; k < hashtagsLower.length; k++) {
+    if (hashtagsLower[k][0] !== '#') {
       hashtagAddingElement.setCustomValidity('Каждый хеш-тег начинается с решетки "#".');
       return;
     } else {
@@ -289,8 +289,8 @@ var validateHashtagsHandler = function () {
     }
   }
 
-  for (var i = 0; i < hashtagsLower.length; i++) {
-    if (/^[#][a-zа-яё0-9]+[#]/.test(hashtagsLower[i])) {
+  for (var n = 0; n < hashtagsLower.length; n++) {
+    if (/^[#][a-zа-яё0-9]+[#]/.test(hashtagsLower[n])) {
       hashtagAddingElement.setCustomValidity('Хеш-теги разделяются пробелом.');
       return;
     } else {
@@ -298,9 +298,8 @@ var validateHashtagsHandler = function () {
     }
   }
 
-  for (var i = 0; i < hashtagsLower.length; i++) {
-    var rege = /^[#][a-zа-яё0-9]+$/;
-    if (!(/^[#][a-zа-яё0-9]+$/.test(hashtagsLower[i]))) {
+  for (var m = 0; m < hashtagsLower.length; m++) {
+    if (!(/^[#][a-zа-яё0-9]+$/.test(hashtagsLower[m]))) {
       hashtagAddingElement.setCustomValidity('Хеш-тег состоит из букв и цифр.');
       return;
     } else {
@@ -308,8 +307,8 @@ var validateHashtagsHandler = function () {
     }
   }
 
-  for (var i = 0; i < hashtagsLower.length; i++) {
-    if (hashtagsLower[i].length > HASHTAG_MAX_LENGTH) {
+  for (var l = 0; l < hashtagsLower.length; l++) {
+    if (hashtagsLower[l].length > HASHTAG_MAX_LENGTH) {
       hashtagAddingElement.setCustomValidity('Хеш-тег не может быть длинее 20 символов.');
       return;
     } else {
@@ -317,11 +316,11 @@ var validateHashtagsHandler = function () {
     }
   }
 
-  for (var i = 0; i < hashtagsLower.length; i++) {
-    var currentHashtag = hashtagsLower[i];
+  for (var z = 0; z < hashtagsLower.length; z++) {
+    var currentHashtag = hashtagsLower[z];
 
-    for (var j = i + 1; j < hashtagsLower.length; j++) {
-      if (hashtagsLower.length !== 1 && currentHashtag === hashtagsLower[j]) {
+    for (var x = i + 1; x < hashtagsLower.length; x++) {
+      if (hashtagsLower.length !== 1 && currentHashtag === hashtagsLower[x]) {
         hashtagAddingElement.setCustomValidity('Не может быть повторяющихся хеш-тегов. Хэш-теги нечувствительны к регистру: #ХэшТег и #хэштег считаются одним и тем же тегом.');
         return;
       } else {
