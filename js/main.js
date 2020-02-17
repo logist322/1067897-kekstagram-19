@@ -96,14 +96,14 @@ var showBigPicture = function (photo) {
 
   document.querySelector('.social__comment-count').classList.add('hidden');
   document.querySelector('.comments-loader').classList.add('hidden');
-  fixBody();
+  showBodyOverlay();
 };
 
-var fixBody = function () {
+var showBodyOverlay = function () {
   document.querySelector('body').classList.add('modal-open');
 };
 
-var unfixBody = function () {
+var hideBodyOverlay = function () {
   document.querySelector('body').classList.remove('modal-open');
 };
 
@@ -114,12 +114,11 @@ var init = function () {
 
 init();
 
-// Временно, для удобства работы
 var smallElement = document.querySelector('.picture');
 var closeBigHandler = function (evt) {
   if (evt.key === ESCAPE_KEY) {
     document.querySelector('.big-picture').classList.add('hidden');
-    unfixBody();
+    hideBodyOverlay();
     document.removeEventListener('keydown', closeBigHandler);
   }
 };
@@ -128,18 +127,15 @@ smallElement.addEventListener('click', function () {
   showBigPicture(images[0]);
   document.addEventListener('keydown', closeBigHandler);
 });
-//
 
 var SCALE_MIN_COUNT = 25;
 var SCALE_MAX_COUNT = 100;
 var SCALE_STEP = 25;
 var SCALE_DEFAULT = 100;
-// var RANGE_DEFAULT = 100;
 var HASHTAG_MAX_COUNT = 5;
 var HASHTAG_MAX_LENGTH = 20;
 
 var imageScaleForm = SCALE_DEFAULT;
-// var filter = 'none';
 
 var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
@@ -182,7 +178,7 @@ var uploadImageHandler = function () {
 
   scaleCountElement.value = imageScaleForm + '%';
   formUploadImageElement.classList.remove('hidden');
-  fixBody();
+  showBodyOverlay();
   hideEffectBar();
   changeClassFilter('none');
   addFormHandlers();
@@ -190,14 +186,14 @@ var uploadImageHandler = function () {
 
 var closeFormHandler = function () {
   formUploadImageElement.classList.add('hidden');
-  unfixBody();
+  hideBodyOverlay();
   removeFormHandlers();
 };
 
 var closeFormEscHandler = function (evt) {
   if (evt.key === ESCAPE_KEY) {
     formUploadImageElement.classList.add('hidden');
-    unfixBody();
+    hideBodyOverlay();
     removeFormHandlers();
   }
 };
