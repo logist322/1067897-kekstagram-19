@@ -272,6 +272,8 @@ main {
   left: 5px;
   top: -7px;
 
+  pointer-events: none;
+
   background-image: url("../img/sprite.png");
   background-repeat: no-repeat;
 }
