@@ -91,7 +91,7 @@
     changingFilter(valueElement.value);
     pinElement.style.left = coordinatesToWrite + 'px';
     depthElement.style.width = coordinatesToWrite + 'px';
-  }
+  };
 
   pinElement.addEventListener('mousedown', movePinHandler);
   barElement.addEventListener('click', clickBarHandler);
