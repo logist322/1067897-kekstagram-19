@@ -597,7 +597,7 @@ main {
 .effect-level__pin {
   position: absolute;
   top: 50%;
-  left: 20%;
+  left: 100%;
   z-index: 1;
 
   width: 18px;
@@ -617,7 +617,7 @@ main {
 .effect-level__depth {
   position: absolute;
 
-  width: 20%;
+  width: 100%;
   height: 100%;
 
   background-color: #ffe753;

@@ -110,13 +110,22 @@
 
   var changeClassFilter = function (filter) {
     removeAllClass(imageFormElement);
+
+    var resetFilter = function () {
+      document.querySelector('.effect-level__value').value = 100;
+      imageFormElement.style.filter = '';
+      document.querySelector('.effect-level__pin').style.left = effectElement.querySelector('.effect-level__line').offsetWidth + 'px';
+      document.querySelector('.effect-level__depth').style.width = effectElement.querySelector('.effect-level__line').offsetWidth + 'px';
+    };
     if (filter !== 'none') {
       imageFormElement.classList.add('effects__preview--' + filter);
       showEffectBar();
+      resetFilter();
     }
 
     if (filter === 'none') {
       hideEffectBar();
+      resetFilter();
     }
   };
 
