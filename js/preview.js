@@ -11,29 +11,25 @@
     var index = percent / 100;
     var image = document.querySelector('.img-upload__preview > img');
 
-    if (image.className === 'effects__preview--chrome') {
-      image.style.filter = 'grayscale(' + (1 * index) + ')';
-      return;
-    }
+    switch (image.className) {
+      case 'effects__preview--chrome':
+        image.style.filter = 'grayscale(' + (1 * index) + ')';
+        break;
 
-    if (image.className === 'effects__preview--sepia') {
-      image.style.filter = 'sepia(' + (1 * index) + ')';
-      return;
-    }
+      case 'effects__preview--sepia':
+        image.style.filter = 'sepia(' + (1 * index) + ')';
+        break;
 
-    if (image.className === 'effects__preview--marvin') {
-      image.style.filter = 'invert(' + percent + '%)';
-      return;
-    }
+      case 'effects__preview--marvin':
+        image.style.filter = 'invert(' + percent + '%)';
+        break;
 
-    if (image.className === 'effects__preview--phobos') {
-      image.style.filter = 'blur(' + (3 * index) + 'px)';
-      return;
-    }
+      case 'effects__preview--phobos':
+        image.style.filter = 'blur(' + (3 * index) + 'px)';
+        break;
 
-    if (image.className === 'effects__preview--heat') {
-      image.style.filter = 'brightness(' + (2 * index + 1) + ')';
-      return;
+      case 'effects__preview--heat':
+        image.style.filter = 'brightness(' + (2 * index + 1) + ')';
     }
   };
 

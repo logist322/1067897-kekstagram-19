@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var ESCAPE_KEY = 'Escape';
-
   var showBigPicture = function (photo) {
     var pictureElement = document.querySelector('.big-picture');
     var imageElement = pictureElement.querySelector('.big-picture__img > img');
@@ -37,43 +35,7 @@
     window.utilits.showBodyOverlay();
   };
 
-  var list = document.querySelector('.pictures');
-  var buttonCloseBigPicture = document.querySelector('#picture-cancel');
-
-  var closeBigEscHandler = function (evt) {
-    if (evt.key === ESCAPE_KEY) {
-      document.querySelector('.big-picture').classList.add('hidden');
-      window.utilits.hideBodyOverlay();
-      document.removeEventListener('keydown', closeBigEscHandler);
-      buttonCloseBigPicture.removeEventListener('click', closeBigHandler);
-    }
+  window.big = {
+    showBigPicture: showBigPicture
   };
-
-  var closeBigHandler = function () {
-    document.querySelector('.big-picture').classList.add('hidden');
-    window.utilits.hideBodyOverlay();
-    document.removeEventListener('keydown', closeBigEscHandler);
-    buttonCloseBigPicture.removeEventListener('click', closeBigHandler);
-  };
-
-  var openBigHandler = function (evt) {
-    if (evt.target.className === 'picture__info' || evt.target.className === 'picture__img' || evt.target.className === 'picture__likes' || evt.target.className === 'picture__comments' || evt.target.className === 'picture') {
-      document.addEventListener('keydown', closeBigEscHandler);
-      buttonCloseBigPicture.addEventListener('click', closeBigHandler);
-    }
-
-    if (evt.target.className === 'picture__info' || evt.target.className === 'picture__img') {
-      showBigPicture(window.data.images[evt.target.parentNode.dataset.index]);
-    }
-
-    if (evt.target.className === 'picture__likes' || evt.target.className === 'picture__comments') {
-      showBigPicture(window.data.images[evt.target.parentNode.dataset.index]);
-    }
-
-    if (evt.target.className === 'picture') {
-      showBigPicture(window.data.images[evt.target.dataset.index]);
-    }
-  };
-
-  list.addEventListener('click', openBigHandler);
 })();
