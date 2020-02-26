@@ -104,20 +104,24 @@
     }
   };
 
-  var removeAllClass = function (element) {
-    element.className = '';
+  var resetFilter = function () {
+    document.querySelector('.effect-level__value').value = 100;
+    imageFormElement.style.filter = '';
+    document.querySelector('.effect-level__pin').style.left = effectElement.querySelector('.effect-level__line').offsetWidth + 'px';
+    document.querySelector('.effect-level__depth').style.width = effectElement.querySelector('.effect-level__line').offsetWidth + 'px';
   };
 
   var changeClassFilter = function (filter) {
-    removeAllClass(imageFormElement);
+    window.utilits.removeAllClass(imageFormElement);
+
     if (filter !== 'none') {
       imageFormElement.classList.add('effects__preview--' + filter);
       showEffectBar();
-    }
-
-    if (filter === 'none') {
+    } else {
       hideEffectBar();
     }
+
+    resetFilter();
   };
 
   var noEscHandler = function (evt) {

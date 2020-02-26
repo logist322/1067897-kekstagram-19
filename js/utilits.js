@@ -17,10 +17,15 @@
     document.querySelector('body').classList.remove('modal-open');
   };
 
+  var removeAllClass = function (element) {
+    element.className = '';
+  };
+
   window.utilits = {
     getRandomInt: getRandomInt,
     getRandomElement: getRandomElement,
     showBodyOverlay: showBodyOverlay,
-    hideBodyOverlay: hideBodyOverlay
+    hideBodyOverlay: hideBodyOverlay,
+    removeAllClass: removeAllClass
   };
 })();
