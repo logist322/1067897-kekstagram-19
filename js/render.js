@@ -30,7 +30,7 @@
       evt.preventDefault();
       evt.stopPropagation();
 
-      window.big.showBigPicture(window.data.images[evt.currentTarget.dataset.index]);
+      window.big.showBigPicture(photos[evt.currentTarget.dataset.index]);
 
       document.addEventListener('keydown', closeBigEscHandler);
       document.querySelector('#picture-cancel').addEventListener('click', closeBigHandler);
@@ -52,5 +52,5 @@
     pictureListElement.appendChild(fragment);
   };
 
-  renderImages(window.data.images);
+  window.data.load(renderImages);
 })();
