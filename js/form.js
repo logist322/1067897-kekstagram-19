@@ -23,6 +23,7 @@
   var effectListElement = formUploadImageElement.querySelector('.effects__list');
   var hashtagAddingElement = formUploadImageElement.querySelector('.text__hashtags');
   var commentAddingElement = document.querySelector('.text__description');
+  var formElement = document.querySelector('#upload-select-image');
 
   var addFormHandlers = function () {
     buttonCloseFormElement.addEventListener('click', closeFormHandler);
@@ -62,6 +63,7 @@
     formUploadImageElement.classList.add('hidden');
     window.utilits.hideBodyOverlay();
     removeFormHandlers();
+    resetForm();
   };
 
   var closeFormEscHandler = function (evt) {
@@ -69,6 +71,7 @@
       formUploadImageElement.classList.add('hidden');
       window.utilits.hideBodyOverlay();
       removeFormHandlers();
+      resetForm();
     }
   };
 
@@ -219,5 +222,96 @@
     hashtagAddingElement.setCustomValidity('');
   };
 
+  var resetForm = function () {
+    formUploadImageElement.querySelector('input[value=none]').checked = true;
+    hashtagAddingElement.value = '';
+    commentAddingElement.value = '';
+    formUploadImageElement.querySelector('.effect-level__value').value = 100;
+    buttonUploadElement.value = '';
+    imageScaleForm = SCALE_DEFAULT;
+    scalePicture(imageScaleForm, formUploadImageElement.querySelector('.scale__control--value'), imageFormElement);
+  };
+
+  var deleteSuccessMessage = function () {
+    document.querySelector('.success').remove();
+    document.removeEventListener('keydown', deleteSuccessMessageEscHandler);
+  };
+
+  var deleteSuccessMessageHandler = function () {
+    deleteSuccessMessage();
+  };
+
+  var deleteSuccessMessageOverlayHandler = function (evt) {
+    if (evt.target.className === 'success') {
+      deleteSuccessMessage();
+    }
+  };
+
+  var deleteSuccessMessageEscHandler = function (evt) {
+    if (evt.key === ESCAPE_KEY) {
+      deleteSuccessMessage();
+    }
+  };
+
+  var showSuccessMessage = function () {
+    var element = document.querySelector('#success').content.cloneNode(true);
+    document.querySelector('main').appendChild(element);
+    document.querySelector('.success__button').addEventListener('click', deleteSuccessMessageHandler);
+    document.querySelector('.success').addEventListener('click', deleteSuccessMessageOverlayHandler);
+    document.addEventListener('keydown', deleteSuccessMessageEscHandler);
+  };
+
+  var successSubmitHandler = function () {
+    formUploadImageElement.classList.add('hidden');
+    window.utilits.hideBodyOverlay();
+    removeFormHandlers();
+    showSuccessMessage();
+    resetForm();
+  };
+
+  var deleteErrorMessage = function () {
+    document.querySelector('.error').remove();
+    document.removeEventListener('keydown', deleteSuccessMessageEscHandler);
+  };
+
+  var deleteErrorMessageHandler = function () {
+    deleteErrorMessage();
+  };
+
+  var deleteErrorMessageOverlayHandler = function (evt) {
+    if (evt.target.className === 'error') {
+      deleteErrorMessage();
+    }
+  };
+
+  var deleteErrorMessageEscHandler = function (evt) {
+    if (evt.key === ESCAPE_KEY) {
+      deleteErrorMessage();
+    }
+  };
+
+  var showErrorMessage = function () {
+    var element = document.querySelector('#error').content.cloneNode(true);
+    document.querySelector('main').appendChild(element);
+    document.querySelector('.error__button').addEventListener('click', deleteErrorMessageHandler);
+    document.querySelector('.error').addEventListener('click', deleteErrorMessageOverlayHandler);
+    document.addEventListener('keydown', deleteErrorMessageEscHandler);
+  };
+
+  var errorSubmitHandler = function () {
+    formUploadImageElement.classList.add('hidden');
+    window.utilits.hideBodyOverlay();
+    removeFormHandlers();
+    showErrorMessage();
+    resetForm();
+  };
+
+  var submitFormHandler = function (evt) {
+    window.data.save(new FormData(formElement), successSubmitHandler, errorSubmitHandler);
+
+    evt.preventDefault();
+  };
+
   buttonUploadElement.addEventListener('change', uploadImageHandler);
+  formElement.addEventListener('submit', submitFormHandler);
 })();
