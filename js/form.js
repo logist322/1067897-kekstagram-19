@@ -148,6 +148,11 @@
     var hashtags = hashtagAddingElement.value.split(/\s+/);
     var hashtagsLower = [];
 
+    if (hashtagAddingElement.value === '') {
+      hashtagAddingElement.setCustomValidity('');
+      return;
+    }
+
     for (var i = 0; i < hashtags.length; i++) {
       hashtagsLower[i] = hashtags[i].toLowerCase();
     }
@@ -307,7 +312,7 @@
   };
 
   var submitFormHandler = function (evt) {
-    window.data.save(new FormData(formElement), successSubmitHandler, errorSubmitHandler);
+    window.data.save(successSubmitHandler, errorSubmitHandler, new FormData(formElement));
 
     evt.preventDefault();
   };
