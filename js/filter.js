@@ -5,7 +5,7 @@
 
   var showDefault = window.debounce(function (photos) {
     window.render.renderImages(photos);
-  }, 'filter');
+  });
 
   var showRandom = window.debounce(function (photos) {
     var photosCopy = photos.slice();
@@ -18,7 +18,7 @@
     }
 
     window.render.renderImages(photosToShow);
-  }, 'filter');
+  });
 
   var showDiscussed = window.debounce(function (photos) {
     var photosCopy = photos.slice();
@@ -28,7 +28,7 @@
     });
 
     window.render.renderImages(photosCopy);
-  }, 'filter');
+  });
 
   window.filter = {
     showRandom: showRandom,
