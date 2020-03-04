@@ -2,6 +2,7 @@
 
 (function () {
   var COMMENT_COUNT = 5;
+  var ESCAPE_KEY = 'Escape';
 
   var showBigPicture = function (photo) {
     var pictureElement = document.querySelector('.big-picture');
@@ -15,6 +16,24 @@
     var buttonElement = pictureElement.querySelector('.comments-loader');
 
     var commentsCopy = photo.comments.slice();
+
+    var closeBigEscHandler = function (evt) {
+      if (evt.key === ESCAPE_KEY) {
+        document.querySelector('.big-picture').classList.add('hidden');
+        window.utilits.hideBodyOverlay();
+        document.removeEventListener('keydown', closeBigEscHandler);
+        document.querySelector('#picture-cancel').removeEventListener('click', closeBigHandler);
+        document.querySelector('.comments-loader').removeEventListener('click', addCommentsHandler);
+      }
+    };
+
+    var closeBigHandler = function () {
+      document.querySelector('.big-picture').classList.add('hidden');
+      window.utilits.hideBodyOverlay();
+      document.removeEventListener('keydown', closeBigEscHandler);
+      document.querySelector('#picture-cancel').removeEventListener('click', closeBigHandler);
+      document.querySelector('.comments-loader').removeEventListener('click', addCommentsHandler);
+    };
 
     var addComments = function (comments) {
       var fragment = document.createDocumentFragment();
@@ -50,6 +69,9 @@
     };
 
     window.utilits.deleteChildren(commentListElement, 1);
+
+    document.addEventListener('keydown', closeBigEscHandler);
+    document.querySelector('#picture-cancel').addEventListener('click', closeBigHandler);
 
     if (photo.comments.length) {
       buttonElement.classList.remove('hidden');

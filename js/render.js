@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var ESCAPE_KEY = 'Escape';
+  // var ESCAPE_KEY = 'Escape';
   var data = [];
 
   var successLoadHandler = function (response) {
@@ -17,21 +17,21 @@
       .content
       .querySelector('.picture');
 
-    var closeBigEscHandler = function (evt) {
-      if (evt.key === ESCAPE_KEY) {
-        document.querySelector('.big-picture').classList.add('hidden');
-        window.utilits.hideBodyOverlay();
-        document.removeEventListener('keydown', closeBigEscHandler);
-        document.querySelector('#picture-cancel').removeEventListener('click', closeBigHandler);
-      }
-    };
+    // var closeBigEscHandler = function (evt) {
+    //   if (evt.key === ESCAPE_KEY) {
+    //     document.querySelector('.big-picture').classList.add('hidden');
+    //     window.utilits.hideBodyOverlay();
+    //     document.removeEventListener('keydown', closeBigEscHandler);
+    //     document.querySelector('#picture-cancel').removeEventListener('click', closeBigHandler);
+    //   }
+    // };
 
-    var closeBigHandler = function () {
-      document.querySelector('.big-picture').classList.add('hidden');
-      window.utilits.hideBodyOverlay();
-      document.removeEventListener('keydown', closeBigEscHandler);
-      document.querySelector('#picture-cancel').removeEventListener('click', closeBigHandler);
-    };
+    // var closeBigHandler = function () {
+    //   document.querySelector('.big-picture').classList.add('hidden');
+    //   window.utilits.hideBodyOverlay();
+    //   document.removeEventListener('keydown', closeBigEscHandler);
+    //   document.querySelector('#picture-cancel').removeEventListener('click', closeBigHandler);
+    // };
 
     var openBigHandler = function (evt) {
       evt.preventDefault();
@@ -39,8 +39,8 @@
 
       window.big.showBigPicture(photos[evt.currentTarget.dataset.index]);
 
-      document.addEventListener('keydown', closeBigEscHandler);
-      document.querySelector('#picture-cancel').addEventListener('click', closeBigHandler);
+      // document.addEventListener('keydown', closeBigEscHandler);
+      // document.querySelector('#picture-cancel').addEventListener('click', closeBigHandler);
     };
 
     var changeFilterHandler = function (evt) {
