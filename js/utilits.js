@@ -21,11 +21,18 @@
     element.className = '';
   };
 
+  var deleteChildren = function (parent, start) {
+    while (parent.children[start - 1]) {
+      parent.removeChild(parent.lastChild);
+    }
+  };
+
   window.utilits = {
     getRandomInt: getRandomInt,
     getRandomElement: getRandomElement,
     showBodyOverlay: showBodyOverlay,
     hideBodyOverlay: hideBodyOverlay,
-    removeAllClass: removeAllClass
+    removeAllClass: removeAllClass,
+    deleteChildren: deleteChildren
   };
 })();
