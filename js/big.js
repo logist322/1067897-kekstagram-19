@@ -17,22 +17,22 @@
 
     var commentsCopy = photo.comments.slice();
 
-    var closeBigEscHandler = function (evt) {
-      if (evt.key === ESCAPE_KEY) {
-        document.querySelector('.big-picture').classList.add('hidden');
-        window.utilits.hideBodyOverlay();
-        document.removeEventListener('keydown', closeBigEscHandler);
-        document.querySelector('#picture-cancel').removeEventListener('click', closeBigHandler);
-        document.querySelector('.comments-loader').removeEventListener('click', addCommentsHandler);
-      }
-    };
-
-    var closeBigHandler = function () {
+    var closeBigPicture = function () {
       document.querySelector('.big-picture').classList.add('hidden');
       window.utilits.hideBodyOverlay();
       document.removeEventListener('keydown', closeBigEscHandler);
       document.querySelector('#picture-cancel').removeEventListener('click', closeBigHandler);
       document.querySelector('.comments-loader').removeEventListener('click', addCommentsHandler);
+    };
+
+    var closeBigEscHandler = function (evt) {
+      if (evt.key === ESCAPE_KEY) {
+        closeBigPicture();
+      }
+    };
+
+    var closeBigHandler = function () {
+      closeBigPicture();
     };
 
     var addComments = function (comments) {
