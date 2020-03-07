@@ -524,6 +524,7 @@ main {
  */
 
 .img-upload__preview {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
