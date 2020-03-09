@@ -1,19 +1,19 @@
 'use strict';
 
 (function () {
-  var IMAGE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var IMAGE_TYPES = [/(.gif)$/, /(.jpg)$/, /(jpeg)$/, /(png)$/];
 
-  var input = document.querySelector('.img-upload__input');
-  var image = document.querySelector('.img-upload__preview img');
+  var imgUploadInputElement = document.querySelector('.img-upload__input');
+  var imgUploadPreviewElement = document.querySelector('.img-upload__preview img');
 
   var changeImageHandler = function () {
-    var file = input.files[0];
+    var file = imgUploadInputElement.files[0];
     var fileName = file.name.toLowerCase();
 
     var loadingStubElement = document.querySelector('#messages').content.querySelector('.img-upload__message').cloneNode(true);
 
     var matches = IMAGE_TYPES.some(function (it) {
-      return fileName.endsWith(it);
+      return it.test(fileName);
     });
 
     document.querySelector('.img-upload__preview').appendChild(loadingStubElement);
@@ -22,7 +22,7 @@
       var render = new FileReader();
 
       render.addEventListener('load', function () {
-        image.src = render.result;
+        imgUploadPreviewElement.src = render.result;
         loadingStubElement.remove();
       });
 
@@ -30,5 +30,5 @@
     }
   };
 
-  input.addEventListener('change', changeImageHandler);
+  imgUploadInputElement.addEventListener('change', changeImageHandler);
 })();
