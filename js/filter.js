@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var RANDOM_COUNT = 10;
+  var RANDOM_IMAGE_COUNT = 10;
 
   var showDefault = window.debounce(function (photos) {
     window.render.renderImages(photos);
@@ -11,7 +11,7 @@
     var photosCopy = photos.slice();
     var photosToShow = [];
 
-    for (var i = 0; i < RANDOM_COUNT; i++) {
+    for (var i = 0; i < RANDOM_IMAGE_COUNT; i++) {
       var currentIndex = window.utilits.getRandomInt(1, photosCopy.length) - 1;
       photosToShow[i] = photosCopy[currentIndex];
       photosCopy.splice(currentIndex, 1);

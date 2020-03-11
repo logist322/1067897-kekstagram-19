@@ -37,11 +37,7 @@
 
     var addComments = function (comments) {
       var fragment = document.createDocumentFragment();
-      var currentCount = COMMENT_COUNT;
-
-      if (COMMENT_COUNT > comments.length) {
-        currentCount = comments.length;
-      }
+      var currentCount = (COMMENT_COUNT > comments.length) ? comments.length : COMMENT_COUNT;
 
       for (var i = 0; i < currentCount; i++) {
         var currentCommentElement = commentElement.cloneNode(true);

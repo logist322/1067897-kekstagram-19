@@ -13,11 +13,11 @@
 
     switch (image.className) {
       case 'effects__preview--chrome':
-        image.style.filter = 'grayscale(' + (1 * index) + ')';
+        image.style.filter = 'grayscale(' + (index) + ')';
         break;
 
       case 'effects__preview--sepia':
-        image.style.filter = 'sepia(' + (1 * index) + ')';
+        image.style.filter = 'sepia(' + (index) + ')';
         break;
 
       case 'effects__preview--marvin':

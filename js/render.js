@@ -1,6 +1,13 @@
 'use strict';
 
 (function () {
+  var filterElement = document.querySelector('.img-filters');
+  var pictureListElement = document.querySelector('.pictures');
+  var fragment = document.createDocumentFragment();
+  var blankElement = document.querySelector('#picture')
+    .content
+    .querySelector('.picture');
+
   var data = [];
 
   var successLoadHandler = function (response) {
@@ -9,13 +16,6 @@
   };
 
   var renderImages = function (photos) {
-    var filterElement = document.querySelector('.img-filters');
-    var pictureListElement = document.querySelector('.pictures');
-    var fragment = document.createDocumentFragment();
-    var blankElement = document.querySelector('#picture')
-      .content
-      .querySelector('.picture');
-
     var openBigHandler = function (evt) {
       evt.preventDefault();
       evt.stopPropagation();
@@ -52,22 +52,24 @@
       item.classList.add('img-filters__button--active');
     };
 
-    filterElement.classList.remove('img-filters--inactive');
-    filterElement.addEventListener('click', changeFilterHandler);
-    window.utilits.deleteChildren(document.querySelector('.pictures'), 3);
-
-    for (var i = 0; i < photos.length; i++) {
+    var renderSmallImage = function (image, index) {
       var currentElement = blankElement.cloneNode(true);
 
-      currentElement.querySelector('.picture__img').src = photos[i].url;
-      currentElement.querySelector('.picture__likes').textContent = photos[i].likes;
-      currentElement.querySelector('.picture__comments').textContent = photos[i].length;
-      currentElement.dataset.index = i;
+      currentElement.querySelector('.picture__img').src = image.url;
+      currentElement.querySelector('.picture__likes').textContent = image.likes;
+      currentElement.querySelector('.picture__comments').textContent = image.length;
+      currentElement.dataset.index = index;
 
       currentElement.addEventListener('click', openBigHandler);
 
       fragment.appendChild(currentElement);
-    }
+    };
+
+    filterElement.classList.remove('img-filters--inactive');
+    filterElement.addEventListener('click', changeFilterHandler);
+    window.utilits.deleteChildren(document.querySelector('.pictures'), 3);
+
+    photos.forEach(renderSmallImage);
 
     pictureListElement.appendChild(fragment);
   };

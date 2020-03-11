@@ -1264,6 +1264,7 @@ main {
  */
 
 .error,
+.type-error,
 .success {
   position: fixed;
   display: flex;
@@ -1280,6 +1281,7 @@ main {
 }
 
 .error__inner,
+.type-error__inner,
 .success__inner {
   position: relative;
   width: 600px;
@@ -1307,7 +1309,8 @@ main {
   padding-bottom: 75px;
 }
 
-.error__title {
+.error__title,
+.type-error__title {
   position: relative;
 
   margin: 0;
@@ -1323,7 +1326,13 @@ main {
   font-size: 32px;
 }
 
-.error__title::before {
+.type-error__title {
+  line-height: normal;
+  margin-bottom: 30px;
+}
+
+.error__title::before,
+.type-error__title::before {
   content: "";
   position: absolute;
 
@@ -1341,6 +1350,7 @@ main {
 }
 
 .error__button,
+.type-error__button,
 .success__button {
   padding: 5px 10px;
 
@@ -1354,12 +1364,15 @@ main {
 
 .error__button:hover,
 .error__button:focus,
+.type-error__button:hover,
+.type-error__button:focus,
 .success__button:hover,
 .success__button:focus {
   opacity: 0.8;
 }
 
 .error__button:active,
+.type-error__button:active,
 .success__button:active {
   opacity: 0.6;
 }

@@ -1,10 +1,14 @@
 'use strict';
 
 (function () {
-  var URL_LOAD = 'https://js.dump.academy/kekstagram/data';
-  var URL_SAVE = 'https://js.dump.academy/kekstagram';
-  var METHOD_SAVE = 'POST';
-  var METHOD_LOAD = 'GET';
+  var API_URL = 'https://js.dump.academy/kekstagram';
+  var URL_LOAD = API_URL + '/data';
+  var URL_SAVE = API_URL + '/';
+
+  var Methods = {
+    SAVE: 'POST',
+    LOAD: 'GET'
+  };
 
   var request = function (method, url, onSuccess, onError, data) {
     var xhr = new XMLHttpRequest();
@@ -22,12 +26,12 @@
     xhr.send(data);
   };
 
-  var save = function (succsessHandler, errorHandler, data) {
-    request(METHOD_SAVE, URL_SAVE, succsessHandler, errorHandler, data);
+  var save = function (successHandler, errorHandler, data) {
+    request(Methods.SAVE, URL_SAVE, successHandler, errorHandler, data);
   };
 
-  var load = function (succsessHandler, errorHandler) {
-    request(METHOD_LOAD, URL_LOAD, succsessHandler, errorHandler);
+  var load = function (successHandler, errorHandler) {
+    request(Methods.LOAD, URL_LOAD, successHandler, errorHandler);
   };
 
   window.data = {
