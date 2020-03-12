@@ -1265,6 +1265,7 @@ main {
 
 .error,
 .type-error,
+.load-error,
 .success {
   position: fixed;
   display: flex;
@@ -1282,6 +1283,7 @@ main {
 
 .error__inner,
 .type-error__inner,
+.load-error__inner,
 .success__inner {
   position: relative;
   width: 600px;
@@ -1310,7 +1312,8 @@ main {
 }
 
 .error__title,
-.type-error__title {
+.type-error__title,
+.load-error__title {
   position: relative;
 
   margin: 0;
@@ -1326,13 +1329,15 @@ main {
   font-size: 32px;
 }
 
-.type-error__title {
+.type-error__title,
+.load-error__title {
   line-height: normal;
   margin-bottom: 30px;
 }
 
 .error__title::before,
-.type-error__title::before {
+.type-error__title::before,
+.load-error__title::before {
   content: "";
   position: absolute;
 
@@ -1351,6 +1356,7 @@ main {
 
 .error__button,
 .type-error__button,
+.load-error__button,
 .success__button {
   padding: 5px 10px;
 
@@ -1366,6 +1372,8 @@ main {
 .error__button:focus,
 .type-error__button:hover,
 .type-error__button:focus,
+.load-error__button:hover,
+.load-error__button:focus,
 .success__button:hover,
 .success__button:focus {
   opacity: 0.8;
@@ -1373,6 +1381,7 @@ main {
 
 .error__button:active,
 .type-error__button:active,
+.load-error__button:active,
 .success__button:active {
   opacity: 0.6;
 }

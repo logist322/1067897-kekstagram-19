@@ -24,7 +24,7 @@
     var photosCopy = photos.slice();
 
     photosCopy.sort(function (left, right) {
-      return right.likes - left.likes;
+      return right.comments.length - left.comments.length;
     });
 
     window.render.renderImages(photosCopy);
